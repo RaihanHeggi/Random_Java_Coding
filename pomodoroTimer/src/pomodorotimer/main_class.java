@@ -11,7 +11,6 @@ package pomodorotimer;
 public class main_class {
     public static void main(String[] args) {
         PomodoroTimer pomodoro = new PomodoroTimer();
-        pomodoro.startTimer(pomodoro.getTaskLength());
-        
+        pomodoro.startTimer(pomodoro.getTaskLength(),pomodoro.getStatus());
     }
 }

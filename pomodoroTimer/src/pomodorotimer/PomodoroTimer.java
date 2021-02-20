@@ -114,10 +114,14 @@ public class PomodoroTimer {
         
     //start the timer 
     public void startTimer(int taskLength, int status){
+        String statusResult = "";
+        this.status = 1;
         String statusCheck = checkStatus(status);
-        System.out.println(statusCheck+"  has been started !!");
+        if(statusCheck == "NO_TIMER"){
+            statusResult = "POMODORO ";
+        }
+        System.out.println(statusResult+"  has been started !!");
         timer.scheduleAtFixedRate(task, taskLength*60 , 1000);
-        System.out.println(statusCheck+"  has been stopped !!");
         String checkStartBreak = inputValue.nextLine();
         if(checkStartBreak == "Y"){
             this.taskCount += 1;
@@ -129,22 +133,34 @@ public class PomodoroTimer {
                 startBreakShortBreak(this.shortBreakTime, this.status);
             }
         }else {
-            System.out.println("END");
+            endTimer();
         }       
     }
        
     public void startBreakShortBreak(int shortBreakTime, int status){
+        String statusResult = "";
         String statusCheck = checkStatus(status);
-        System.out.println(statusCheck+"  has been started !!");
+        if(statusCheck == "SHORT_BREAK_TIMER"){
+            statusResult = "SHORT BREAK ";
+        }
+        System.out.println(statusResult+"  has been started !!");
         timer.scheduleAtFixedRate(task, shortBreakTime*60 , 1000);
-        System.out.println(statusCheck+"  has been stopped !!");
+        startTimer(this.taskLength, this.status);
     }
     
     public void startBreakLongBreak(int longBreakTime, int status){
+        String statusResult = "";
         String statusCheck = checkStatus(status);
-        System.out.println(statusCheck+"  has been started !!");
+        if(statusCheck == "LONG_BREAK_TIMER"){
+            statusResult = "LONG BREAK ";
+        }
+        System.out.println(statusResult+"  has been started !!");
         timer.scheduleAtFixedRate(task, longBreakTime*60 , 1000);
-        System.out.println(statusCheck+"  has been stopped !!");
+        startTimer(this.taskLength, this.status);
+    }
+    
+    public String endTimer(){
+        return "END OF POMODORO SYSTEM";
     }
     
     
