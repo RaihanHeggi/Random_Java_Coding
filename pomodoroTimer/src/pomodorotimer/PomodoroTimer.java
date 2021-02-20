@@ -114,6 +114,10 @@ public class PomodoroTimer {
         timer.scheduleAtFixedRate(task,taskLength*60,1000);
     }
     
+    public void startBreakShortBreak(){
+        
+    }
+    
     
     
     
