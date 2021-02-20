@@ -107,17 +107,20 @@ public class PomodoroTimer {
             if(secondPassed == 60){
                 minutePassed += 1;
                 secondPassed = 0;
-                if(status == 1){
-                    lastTime = taskTimer - minutePassed;
-                    System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
-                }else if(status == 2){
-                    lastTime = shortBreakTime - minutePassed;
-                    System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
+                if(lastTime <= -1){
+                    System.out.println("");
                 }else{ 
-                    lastTime = longBreakTime - minutePassed;
-                    System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
+                    if(status == 1){
+                        lastTime = taskTimer - minutePassed;
+                        System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
+                    }else if(status == 2){
+                        lastTime = shortBreakTime - minutePassed;
+                        System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
+                    }else{ 
+                        lastTime = longBreakTime - minutePassed;
+                        System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
+                    }
                 }
-                
             }
             secondPassed++;
         }
@@ -135,7 +138,7 @@ public class PomodoroTimer {
             statusResult = "POMODORO ";
         }
         System.out.println(statusResult+"  has been started !!");
-        timer.scheduleAtFixedRate(task, taskLength*60 , 1000);
+        timer.scheduleAtFixedRate(task,25,taskLength*60);
         String checkStartBreak = inputValue.nextLine();
         if(checkStartBreak == "Y"){
             this.taskCount += 1;
@@ -161,7 +164,7 @@ public class PomodoroTimer {
             statusResult = "SHORT BREAK ";
         }
         System.out.println(statusResult+"  has been started !!");
-        timer.scheduleAtFixedRate(task, shortBreakTime*60 , 1000);
+        timer.scheduleAtFixedRate(task,25,shortBreakTime*60 );
         startTimer(this.taskLength, this.status);
     }
     
@@ -175,7 +178,7 @@ public class PomodoroTimer {
             statusResult = "LONG BREAK ";
         }
         System.out.println(statusResult+"  has been started !!");
-        timer.scheduleAtFixedRate(task, longBreakTime*60 , 1000);
+        timer.scheduleAtFixedRate(task,25,longBreakTime*60);
         startTimer(this.taskLength, this.status);
     }
     
