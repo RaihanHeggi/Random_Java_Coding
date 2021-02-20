@@ -6,6 +6,7 @@
 package pomodorotimer;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Scanner;
 
 
 /**
@@ -95,6 +96,8 @@ public class PomodoroTimer {
     }
     
     
+    //initializing mainTimer
+    private  Scanner inputValue = new Scanner(System.in);
     private int minutePassed = 0;
     private int secondPassed = 0;
     private Timer timer = new Timer();
@@ -110,15 +113,39 @@ public class PomodoroTimer {
     };
         
     //start the timer 
-    public void startTimer(int taskLength){
-        timer.scheduleAtFixedRate(task,taskLength*60,1000);
+    public void startTimer(int taskLength, int status){
+        String statusCheck = checkStatus(status);
+        System.out.println(statusCheck+"  has been started !!");
+        timer.scheduleAtFixedRate(task, taskLength*60 , 1000);
+        System.out.println(statusCheck+"  has been stopped !!");
+        String checkStartBreak = inputValue.nextLine();
+        if(checkStartBreak == "Y"){
+            this.taskCount += 1;
+            if(taskCount == 3){
+                this.status = 3;
+                startBreakLongBreak(this.longBreakTime, this.status);
+            }else{
+                this.status = 2;
+                startBreakShortBreak(this.shortBreakTime, this.status);
+            }
+        }else {
+            System.out.println("END");
+        }       
+    }
+       
+    public void startBreakShortBreak(int shortBreakTime, int status){
+        String statusCheck = checkStatus(status);
+        System.out.println(statusCheck+"  has been started !!");
+        timer.scheduleAtFixedRate(task, shortBreakTime*60 , 1000);
+        System.out.println(statusCheck+"  has been stopped !!");
     }
     
-    public void startBreakShortBreak(){
-        
+    public void startBreakLongBreak(int longBreakTime, int status){
+        String statusCheck = checkStatus(status);
+        System.out.println(statusCheck+"  has been started !!");
+        timer.scheduleAtFixedRate(task, longBreakTime*60 , 1000);
+        System.out.println(statusCheck+"  has been stopped !!");
     }
-    
-    
     
     
     
