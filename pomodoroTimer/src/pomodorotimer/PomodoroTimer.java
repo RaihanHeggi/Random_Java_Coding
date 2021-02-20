@@ -98,17 +98,28 @@ public class PomodoroTimer {
     
     //initializing mainTimer
     private  Scanner inputValue = new Scanner(System.in);
-    private int minutePassed = 0;
-    private int secondPassed = 0;
+    private int minutePassed;
+    private int secondPassed;
+    private int lastTime;
     private Timer timer = new Timer();
     private TimerTask task = new TimerTask(){
         public void run(){
             if(secondPassed == 60){
                 minutePassed += 1;
                 secondPassed = 0;
+                if(status == 1){
+                    lastTime = taskTimer - minutePassed;
+                    System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
+                }else if(status == 2){
+                    lastTime = shortBreakTime - minutePassed;
+                    System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
+                }else{ 
+                    lastTime = longBreakTime - minutePassed;
+                    System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
+                }
+                
             }
             secondPassed++;
-            System.out.println("Session "+minutePassed+" : "+secondPassed);
         }
     };
         
@@ -116,6 +127,9 @@ public class PomodoroTimer {
     public void startTimer(int taskLength, int status){
         String statusResult = "";
         this.status = 1;
+        this.minutePassed = 0;
+        this.secondPassed = 0;
+        this.lastTime = 0;
         String statusCheck = checkStatus(status);
         if(statusCheck == "NO_TIMER"){
             statusResult = "POMODORO ";
