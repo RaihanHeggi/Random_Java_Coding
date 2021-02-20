@@ -154,6 +154,9 @@ public class PomodoroTimer {
     public void startBreakShortBreak(int shortBreakTime, int status){
         String statusResult = "";
         String statusCheck = checkStatus(status);
+        this.minutePassed = 0;
+        this.secondPassed = 0;
+        this.lastTime = 0;
         if(statusCheck == "SHORT_BREAK_TIMER"){
             statusResult = "SHORT BREAK ";
         }
@@ -165,6 +168,9 @@ public class PomodoroTimer {
     public void startBreakLongBreak(int longBreakTime, int status){
         String statusResult = "";
         String statusCheck = checkStatus(status);
+        this.minutePassed = 0;
+        this.secondPassed = 0;
+        this.lastTime = 0;
         if(statusCheck == "LONG_BREAK_TIMER"){
             statusResult = "LONG BREAK ";
         }
