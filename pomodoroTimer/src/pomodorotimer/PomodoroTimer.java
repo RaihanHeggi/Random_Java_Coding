@@ -114,13 +114,23 @@ public class PomodoroTimer {
                     if(selection == "y" ){
                         if(taskCount >= 3){
                             status = 2;
+                            timer.cancel();
                             startBreakShortBreak(shortBreakTime,status);
                         }else{
                             status = 3;
+                            timer.cancel();
                             startBreakLongBreak(longBreakTime,status);
                         }
                     }else{
-                        endTimer();
+                        System.out.println("Continue Pomodoro");
+                        selectionInput = inputValue.nextLine();
+                        selection = selectionInput.toLowerCase();
+                        if(selection == "y"){
+                            status = 1;
+                            startTimer(taskLength,status);
+                        }else{
+                            endTimer();
+                        }
                     }    
                 }else{ 
                     if(status == 1){
@@ -183,6 +193,7 @@ public class PomodoroTimer {
     }
     
     public String endTimer(){
+        timer.cancel();
         return "END OF POMODORO SYSTEM";
     }
     
