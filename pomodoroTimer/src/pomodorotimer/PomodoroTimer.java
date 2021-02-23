@@ -107,17 +107,30 @@ public class PomodoroTimer {
             if(secondPassed == 60){
                 minutePassed += 1;
                 secondPassed = 0;
-                if(lastTime <= -1){
-                    System.out.println("");
+                if(lastTime <= 0){
+                    System.out.println("Do you want to start break session ! (Y/N)");
+                    String selectionInput = inputValue.nextLine();
+                    String selection = selectionInput.toLowerCase();
+                    if(selection == "y" ){
+                        if(taskCount >= 3){
+                            status = 2;
+                            startBreakShortBreak(shortBreakTime,status);
+                        }else{
+                            status = 3;
+                            startBreakLongBreak(longBreakTime,status);
+                        }
+                    }else{
+                        endTimer();
+                    }    
                 }else{ 
                     if(status == 1){
-                        lastTime = taskTimer - minutePassed;
+                        lastTime = (taskTimer - minutePassed)+1;
                         System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
                     }else if(status == 2){
-                        lastTime = shortBreakTime - minutePassed;
+                        lastTime = (shortBreakTime - minutePassed)+1;
                         System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
                     }else{ 
-                        lastTime = longBreakTime - minutePassed;
+                        lastTime = (longBreakTime - minutePassed)+1;
                         System.out.println("Remaining Session Time "+lastTime+" Minutes Again");
                     }
                 }
@@ -139,19 +152,6 @@ public class PomodoroTimer {
         }
         System.out.println(statusResult+"  has been started !!");
         timer.scheduleAtFixedRate(task,25,taskLength*60);
-        String checkStartBreak = inputValue.nextLine();
-        if(checkStartBreak == "Y"){
-            this.taskCount += 1;
-            if(taskCount == 3){
-                this.status = 3;
-                startBreakLongBreak(this.longBreakTime, this.status);
-            }else{
-                this.status = 2;
-                startBreakShortBreak(this.shortBreakTime, this.status);
-            }
-        }else {
-            endTimer();
-        }       
     }
        
     public void startBreakShortBreak(int shortBreakTime, int status){
@@ -159,7 +159,7 @@ public class PomodoroTimer {
         String statusCheck = checkStatus(status);
         this.minutePassed = 0;
         this.secondPassed = 0;
-        this.lastTime = 0;
+        this.lastTime = 9999;
         if(statusCheck == "SHORT_BREAK_TIMER"){
             statusResult = "SHORT BREAK ";
         }
