@@ -145,7 +145,7 @@ public class PomodoroTimer {
         this.status = 1;
         this.minutePassed = 0;
         this.secondPassed = 0;
-        this.lastTime = 0;
+        this.lastTime = 9999;
         String statusCheck = checkStatus(status);
         if(statusCheck == "NO_TIMER"){
             statusResult = "POMODORO ";
@@ -173,7 +173,7 @@ public class PomodoroTimer {
         String statusCheck = checkStatus(status);
         this.minutePassed = 0;
         this.secondPassed = 0;
-        this.lastTime = 0;
+        this.lastTime = 9999;
         if(statusCheck == "LONG_BREAK_TIMER"){
             statusResult = "LONG BREAK ";
         }
