@@ -118,7 +118,7 @@ public class PomodoroTimer {
                             startBreakShortBreak(shortBreakTime,status);
                         }else{
                             status = 3;
-                            timer.cancel();
+                            task.cancel();
                             startBreakLongBreak(longBreakTime,status);
                         }
                     }else{
@@ -193,7 +193,7 @@ public class PomodoroTimer {
     }
     
     public String endTimer(){
-        timer.cancel();
+        task.cancel();
         return "END OF POMODORO SYSTEM";
     }
     
